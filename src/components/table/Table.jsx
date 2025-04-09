@@ -18,7 +18,7 @@ const List = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/proxy");
+        const response = await axios.get("https://autodigest.willreo.com/api/proxy");
 
         console.log("API Response:", response.data); // Debugging API response
 
