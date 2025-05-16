@@ -8,6 +8,17 @@ import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+<<<<<<< HEAD
+=======
+import ArticleDetails from "./components/article/ArticleDetails";
+import FailedArticles from "./components/article/FailedArticles";
+
+import SingleArticle from "./components/single/SingleArticle";
+import ChannelsTable from "./components/youtube/ChannelsTable";
+import VideoTable from "./components/youtube/VideoTable";
+import SuccessSourcesTable from "./sources/SuccessSourcesTable";
+import FailedSourcesTable from "./sources/FailedSourcesTable";
+>>>>>>> pratham
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -19,6 +30,16 @@ function App() {
           <Route path="/">
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
+<<<<<<< HEAD
+=======
+            <Route path="articles" element={<ArticleDetails />} />
+            <Route path="failed" element={<FailedArticles></FailedArticles>} />
+               <Route path="channels" element={<ChannelsTable></ChannelsTable>} />
+                  <Route path="success" element={<SuccessSourcesTable></SuccessSourcesTable>} />
+                     <Route path="fail" element={<FailedSourcesTable></FailedSourcesTable>} />
+                  <Route path="videos" element={<VideoTable></VideoTable>} />
+            <Route path="singlearticle/:encodedUrl" element={<SingleArticle />} />
+>>>>>>> pratham
             <Route path="users">
               <Route index element={<List />} />
               <Route path=":userId" element={<Single />} />
@@ -34,6 +55,10 @@ function App() {
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
+<<<<<<< HEAD
+=======
+              
+>>>>>>> pratham
             </Route>
           </Route>
         </Routes>

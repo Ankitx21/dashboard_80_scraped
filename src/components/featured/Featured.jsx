@@ -4,8 +4,28 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Featured = () => {
+  const [data, setData] = useState({
+    today: 0,
+    this_week: {},
+    last_week: 0,
+    last_month: 0,
+    last_3_months: {},
+  });
+
+  useEffect(() => {
+    axios.get("https://webscrapper.inside-ai.xyz/api/articles/")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching article stats:", err);
+      });
+  }, []);
+
   return (
     <div className="featured">
       <div className="top">
@@ -14,13 +34,10 @@ const Featured = () => {
       </div>
       <div className="bottom">
         <div className="featuredChart">
-          <CircularProgressbar value={70} text={"70%"} strokeWidth={5} />
+          <CircularProgressbar value={data.today} text={`${data.today}`} strokeWidth={5} />
         </div>
         <p className="title">Total Articles Scraped Today</p>
-        <p className="amount">21</p>
-        {/* <p className="desc">
-          Previous transactions processing. Last payments may not be included.
-        </p> */}
+        <p className="amount">{data.today}</p>
         <div className="summary">
           <div className="item">
             <div className="itemTitle">Target</div>
@@ -31,16 +48,16 @@ const Featured = () => {
           </div>
           <div className="item">
             <div className="itemTitle">Last Week</div>
-            <div className="itemResult positive">
+            <div className={`itemResult ${data.last_week >= 0 ? "positive" : "negative"}`}>
               <KeyboardArrowUpOutlinedIcon fontSize="small"/>
-              <div className="resultAmount">14</div>
+              <div className="resultAmount">{data.last_week}</div>
             </div>
           </div>
           <div className="item">
             <div className="itemTitle">Last Month</div>
-            <div className="itemResult positive">
+            <div className={`itemResult ${data.last_month >= 0 ? "positive" : "negative"}`}>
               <KeyboardArrowUpOutlinedIcon fontSize="small"/>
-              <div className="resultAmount">70</div>
+              <div className="resultAmount">{data.last_month}</div>
             </div>
           </div>
         </div>

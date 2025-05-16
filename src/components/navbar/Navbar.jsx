@@ -8,13 +8,22 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
 
   return (
     <div className="navbar">
       <div className="wrapper">
+        <div className="logo-container">
+          <Link to = "/">
+          <img
+            src="/Primary Logo Black.png"
+            alt="Company Logo"
+            className="logo"
+          />
+          </Link>
+        </div>
         <div className="search">
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon />

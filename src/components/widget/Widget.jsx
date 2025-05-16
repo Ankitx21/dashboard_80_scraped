@@ -1,16 +1,42 @@
+import { useEffect, useState } from "react";
 import "./widget.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Widget = ({ type }) => {
-  let data;
+  const [amount, setAmount] = useState(0);
 
-  //temporary
-  const amount = 100;
-  // const diff = 20;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (type === "user") {
+          const res = await axios.get("https://webscrapper.inside-ai.xyz/api/");
+          setAmount(res.data.count);
+        } else if (type === "order") {
+          const res = await axios.get("https://webscrapper.inside-ai.xyz/api/count/");
+          setAmount(res.data.count);
+        } else if (type === "earning") {
+          const res = await axios.get("https://webscrapper.inside-ai.xyz/api/fail/");
+          console.log("hello", res.data);
+          setAmount(res.data.failed_article_count);
+        }
+      } catch (err) {
+        console.error("Error fetching widget data:", err);
+      }
+    };
+
+    // Only fetch data if type is not 'balance'
+    if (type !== "balance") {
+      fetchData();
+    }
+  }, [type]);
+
+  let data;
 
   switch (type) {
     case "user":
@@ -48,7 +74,7 @@ const Widget = ({ type }) => {
     case "earning":
       data = {
         title: "Total Articles Failed",
-        isMoney: true,
+        isMoney: false,
         link: "View articles failed",
         icon: (
           <MonetizationOnOutlinedIcon
@@ -61,8 +87,8 @@ const Widget = ({ type }) => {
     case "balance":
       data = {
         title: "Article Details",
-        isMoney: true,
-        link: "view article details",
+        isMoney: false,
+        link: "View article details",
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
@@ -82,16 +108,30 @@ const Widget = ({ type }) => {
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">
-          {data.isMoney} {amount}
-        </span>
-        <span className="link">{data.link}</span>
+        
+        {/* Show counter only if type is not 'balance' */}
+        {type !== "balance" && (
+          <span className="counter">
+            {data.isMoney ? "₹" : ""} {amount}
+          </span>
+        )}
+        
+        {/* Show link as Link component for 'balance' type, regular span for others */}
+        {type === "balance" ? (
+          <Link to="/articles" className="link balance-link">
+            {data.link}
+          </Link>
+        ) : (
+          <span className="link">{data.link}</span>
+        )}
       </div>
+      
       <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {/* {diff} % */}
-        </div>
+        {type !== "balance" && (
+          <div className="percentage positive">
+            <KeyboardArrowUpIcon />
+          </div>
+        )}
         {data.icon}
       </div>
     </div>

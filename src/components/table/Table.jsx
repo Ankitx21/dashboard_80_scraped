@@ -18,21 +18,21 @@ const List = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://autodigest.willreo.com/api/proxy");
+        // Update the API endpoint to your local Django backend
+        const response = await axios.get("https://webscrapper.inside-ai.xyz/api/count/");
 
-        console.log("API Response:", response.data); // Debugging API response
+        console.log("API Response:", response.data);
 
         if (!response.data || !response.data.article) {
           throw new Error("Invalid API response format");
         }
 
-        // Format API data for table display
         const formattedData = response.data.article.map((item, index) => ({
           id: index + 1,
           url: item.URL || "N/A",
           domain: item.Domain || "Unknown",
-          activeStatus: item["Active Status"], // Keep as true/false
-          automationRunning: item.is_automation_running, // Keep as true/false
+          activeStatus: item["Active Status"],
+          automationRunning: item.is_automation_running,
         }));
 
         setRows(formattedData);
@@ -55,40 +55,40 @@ const List = () => {
             <TableCell className="tableCell">No</TableCell>
             <TableCell className="tableCell">URL</TableCell>
             <TableCell className="tableCell">Domain</TableCell>
-            <TableCell className="tableCell">Active Status</TableCell> {/* Updated */}
-            <TableCell className="tableCell">Automation Running</TableCell> {/* Updated */}
+            <TableCell className="tableCell">Active Status</TableCell>
+            <TableCell className="tableCell">Automation Running</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={5} className="tableCell" align="center">
+              <TableCell colSpan={5} align="center">
                 <CircularProgress />
               </TableCell>
             </TableRow>
           ) : error ? (
             <TableRow>
-              <TableCell colSpan={5} className="tableCell" align="center">
+              <TableCell colSpan={5} align="center">
                 Error: {error}
               </TableCell>
             </TableRow>
           ) : rows.length > 0 ? (
             rows.map((row) => (
               <TableRow key={row.id}>
-                <TableCell className="tableCell">{row.id}</TableCell>
-                <TableCell className="tableCell">
+                <TableCell>{row.id}</TableCell>
+                <TableCell>
                   <a href={row.url} target="_blank" rel="noopener noreferrer">
                     {row.url}
                   </a>
                 </TableCell>
-                <TableCell className="tableCell">{row.domain}</TableCell>
-                <TableCell className="tableCell">{String(row.activeStatus)}</TableCell> {/* Display true/false */}
-                <TableCell className="tableCell">{String(row.automationRunning)}</TableCell> {/* Display true/false */}
+                <TableCell>{row.domain}</TableCell>
+                <TableCell>{String(row.activeStatus)}</TableCell>
+                <TableCell>{String(row.automationRunning)}</TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={5} className="tableCell" align="center">
+              <TableCell colSpan={5} align="center">
                 No Data Available
               </TableCell>
             </TableRow>

@@ -21,17 +21,21 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Scrape Verse</span>
+          <div className="logo-container">
+
+          </div>
         </Link>
       </div>
       <hr />
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
+          <Link to ="/">
           <li>
             <DashboardIcon className="icon" />
             <span>Dashboard</span>
           </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
@@ -39,20 +43,25 @@ const Sidebar = () => {
               <span>Active Sources</span>
             </li>
           </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
+          <Link to="/failed" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Articles Failed</span>
             </li>
           </Link>
+          <Link to = "/fail">
           <li>
             <CreditCardIcon className="icon" />
             <span>Sources Failed</span>
           </li>
+          </Link>
+          <Link to="/articles" style={{ textDecoration: "none" }}>
           <li>
             <LocalShippingIcon className="icon" />
             <span>Article Details</span>
           </li>
+          </Link>
+
           {/* <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
@@ -75,6 +84,19 @@ const Sidebar = () => {
             <SettingsApplicationsIcon className="icon" />
             <span>Settings</span>
           </li> */}
+          <p className="title">YOUTUBE</p>
+<Link to="/channels" style={{ textDecoration: "none" }}>
+  <li>
+    <PersonOutlineIcon className="icon" />
+    <span>Channels</span>
+  </li>
+</Link>
+<Link to="/videos" style={{ textDecoration: "none" }}>
+  <li>
+    <StoreIcon className="icon" />
+    <span>Videos</span>
+  </li>
+</Link>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />

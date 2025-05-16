@@ -31,6 +31,18 @@
       border-bottom: 1px solid gray;
     }
 
+    .balance-link {
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 10px;
+      color: purple;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: darken(purple, 15%);
+      }
+    }
+
     .percentage {
       display: flex;
       align-items: center;
