@@ -1,0 +1,104 @@
+.navbar {
+  height: 70px;
+  border-bottom: 0.5px solid rgb(231, 228, 228);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+  .wrapper {
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo-container {
+      flex-shrink: 0;
+      margin-right: 30px;
+      display: flex;
+      align-items: center;
+
+      .logo {
+        height: 40px;
+        object-fit: contain;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      border: 0.5px solid lightgray;
+      border-radius: 20px;
+      padding: 5px 10px;
+      width: 30%;
+      
+      input {
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+        
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .items {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .item {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        padding: 5px;
+        
+        &:hover {
+          background-color: #f9f9f9;
+          border-radius: 5px;
+        }
+
+        .icon {
+          font-size: 20px;
+          color: #555;
+        }
+
+        .avatar {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid #f0f0f0;
+        }
+
+        .counter {
+          width: 15px;
+          height: 15px;
+          background-color: red;
+          border-radius: 50%;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: bold;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+}

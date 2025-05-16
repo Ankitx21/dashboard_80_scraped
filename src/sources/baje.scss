@@ -1,0 +1,30 @@
+.channels-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.channels-table th,
+.channels-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.channels-table th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+}
+
+.channels-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.channels-table a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.channels-table a:hover {
+  text-decoration: underline;
+}
