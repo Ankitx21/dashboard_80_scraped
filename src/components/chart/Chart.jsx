@@ -19,6 +19,7 @@ const Chart = ({ aspect, title }) => {
       .then((res) => {
         console.log(res);
         const data = res.data;
+         
         if (filter === "last_3_months") {
           const formatted = Object.entries(data.last_3_months).map(([key, val]) => {
             const monthName = new Date(key + "-01").toLocaleString("default", { month: "long" });

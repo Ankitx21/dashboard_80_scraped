@@ -1,3 +1,4 @@
+
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -22,7 +23,8 @@ const Sidebar = () => {
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
           <div className="logo-container">
-
+            <img src="/menu.png" alt="Logo" className="logo-image" />
+            <h1 className="overview-heading">Overview</h1>
           </div>
         </Link>
       </div>
@@ -30,11 +32,11 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to ="/">
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <li>
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </li>
           </Link>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
@@ -49,63 +51,31 @@ const Sidebar = () => {
               <span>Articles Failed</span>
             </li>
           </Link>
-          <Link to = "/fail">
-          <li>
-            <CreditCardIcon className="icon" />
-            <span>Sources Failed</span>
-          </li>
+          <Link to="/fail" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Sources Failed</span>
+            </li>
           </Link>
           <Link to="/articles" style={{ textDecoration: "none" }}>
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Article Details</span>
-          </li>
+            <li>
+              <LocalShippingIcon className="icon" />
+              <span>Article Details</span>
+            </li>
           </Link>
-
-          {/* <p className="title">USEFUL</p>
-          <li>
-            <InsertChartIcon className="icon" />
-            <span>Stats</span>
-          </li>
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
-          </li>
-          <p className="title">SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li>
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
-          </li> */}
-          <p className="title">YOUTUBE</p>
-<Link to="/channels" style={{ textDecoration: "none" }}>
-  <li>
-    <PersonOutlineIcon className="icon" />
-    <span>Channels</span>
-  </li>
-</Link>
-<Link to="/videos" style={{ textDecoration: "none" }}>
-  <li>
-    <StoreIcon className="icon" />
-    <span>Videos</span>
-  </li>
-</Link>
-          <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+          <p className="title">YOUTUBE</p> 
+          <Link to="/channels" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>Channels</span>
+            </li>
+          </Link>
+          <Link to="/videos" style={{ textDecoration: "none" }}>
+            <li>
+              <StoreIcon className="icon" />
+              <span>Videos</span>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="bottom">

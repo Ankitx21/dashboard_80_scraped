@@ -13,6 +13,7 @@ const ArticleDetails = () => {
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [loadedImages, setLoadedImages] = useState({});
   
   const observer = useRef();
   const lastArticleElementRef = useCallback(node => {
@@ -21,10 +22,10 @@ const ArticleDetails = () => {
     
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
-        // If the last element is visible and there are more articles
+
         setPageNumber(prevPageNumber => prevPageNumber + 1);
       }
-    }, { threshold: 1.0 });
+    }, { threshold: 0.5 });
     
     if (node) observer.current.observe(node);
   }, [loading, hasMore]);
@@ -61,12 +62,12 @@ const ArticleDetails = () => {
     }
   }, [pageNumber]);
 
-  // Initial load and when page number changes
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  // Format the published date for display
+
   const formatDate = (dateString) => {
     if (!dateString || dateString === "N/A") return "N/A";
     
@@ -82,7 +83,7 @@ const ArticleDetails = () => {
     }
   };
 
-  // Truncate title to show only 5-6 words
+
   const truncateTitle = (title) => {
     if (!title) return "N/A";
     const words = title.split(' ');
@@ -90,7 +91,7 @@ const ArticleDetails = () => {
     return words.slice(0, 6).join(' ') + '...';
   };
 
-  // Calculate relative time (e.g., "6 mins ago")
+
   const getRelativeTime = (dateString) => {
     if (!dateString || dateString === "N/A") return "N/A";
     
@@ -117,19 +118,31 @@ const ArticleDetails = () => {
     }
   };
 
+
+  const handleImageLoaded = (articleId) => {
+    setLoadedImages(prev => ({
+      ...prev,
+      [articleId]: true
+    }));
+  };
+
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <div style={{ width: "100%", padding: "20px" }}>
-          <h2>Article Details</h2>
-          <p>Showing {articles.length} of {totalCount} articles</p>
+        <div className="article-details-wrapper">
+          <div className="article-details-header">
+            <h2>Article Details</h2>
+            <p>Showing {articles.length} of {totalCount} articles</p>
+          </div>
           
           <div className="articles-container">
             {articles.map((article, index) => {
-              // Add ref only to the last article element
+
               const isLastElement = articles.length === index + 1;
+              const imageLoaded = loadedImages[article.id];
+              
               return (
                 <div 
                   className="article-column" 
@@ -138,8 +151,17 @@ const ArticleDetails = () => {
                 >
                   <div className="post-module">
                     <div className="thumbnail">
+                      {!imageLoaded && (
+                        <div className="image-skeleton-loader"></div>
+                      )}
                       {article.articleImage ? (
-                        <img src={article.articleImage} alt={article.title} />
+                        <img 
+                          src={article.articleImage} 
+                          alt={article.title} 
+                          loading="lazy"
+                          onLoad={() => handleImageLoaded(article.id)}
+                          className={imageLoaded ? "loaded" : ""}
+                        />
                       ) : (
                         <div className="no-image">No Image Available</div>
                       )}
@@ -172,6 +194,7 @@ const ArticleDetails = () => {
           
           {loading && (
             <div className="loading-indicator">
+              <div className="loading-spinner"></div>
               <p>Loading more articles...</p>
             </div>
           )}
@@ -179,6 +202,7 @@ const ArticleDetails = () => {
           {error && (
             <div className="error-message">
               <p>Error: {error}</p>
+              <button onClick={() => fetchData()} className="retry-button">Retry</button>
             </div>
           )}
           
